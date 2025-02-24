@@ -1,7 +1,4 @@
-from transformers import AutoTokenizer, AutoModelForCausalLM
-import json
-import torch
-import pandas
+
 
 all_countries_demonyms = {
     "Afghanistan": ["Afghan"],
@@ -229,10 +226,17 @@ filtered_df = search_results_df[search_results_df["Power Dynamic"]
 #     ~filtered_df_jordan_removed["Country"].isin(["Italian", "French", "Spanish", "Japanese"])
 # ]
 # print(filtered_df_languages_removed.shape)
+from transformers import AutoTokenizer, AutoModelForCausalLM
+import json
+import torch
+import pandas
+from huggingface_hub import login
 
+# Login to Hugging Face
+login(token="")
 
 # Load Mistral-small model and tokenizer
-model_name = "mistralai/Mistral-small"
+model_name = "mistralai/Mistral-Small-24B-Instruct-2501"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
